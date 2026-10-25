@@ -1,6 +1,6 @@
 ---
-import '../styles/global.css';
-import { business } from '../data/business';
+import "../styles/global.css";
+import { business } from "../data/business";
 
 interface Props {
   title?: string;
@@ -16,8 +16,10 @@ const {
   canonicalUrl = Astro.url.href,
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? '';
-const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const ogImageAbsolute = ogImage.startsWith("http")
+  ? ogImage
+  : `${siteUrl}${ogImage}`;
 const currentYear = new Date().getFullYear();
 ---
 
@@ -62,24 +64,27 @@ const currentYear = new Date().getFullYear();
     <meta name="theme-color" content="#c9897a" />
 
     <!-- Datos estructurados (LocalBusiness) -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BeautySalon",
-      "name": business.nombre,
-      "description": business.descripcion,
-      "url": siteUrl,
-      "telephone": `+${business.whatsapp}`,
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": business.ubicacion,
-      },
-      "openingHours": business.horario,
-      "sameAs": [
-        business.redes.instagram,
-        business.redes.facebook,
-        business.redes.tiktok,
-      ].filter(Boolean),
-    })} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BeautySalon",
+        name: business.nombre,
+        description: business.descripcion,
+        url: siteUrl,
+        telephone: `+${business.whatsapp}`,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: business.ubicacion,
+        },
+        openingHours: business.horario,
+        sameAs: [
+          business.redes.instagram,
+          business.redes.facebook,
+          business.redes.tiktok,
+        ].filter(Boolean),
+      })}
+    />
   </head>
   <body>
     <slot />
