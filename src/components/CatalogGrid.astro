@@ -1,0 +1,63 @@
+---
+import { catalog } from '../data/catalog';
+import CatalogCard from './CatalogCard.astro';
+---
+
+<section class="catalog section" id="servicios" aria-labelledby="catalog-title">
+  <div class="container">
+    <div class="catalog__header">
+      <p class="catalog__eyebrow">Nuestros servicios</p>
+      <hr class="divider" aria-hidden="true" />
+      <h2 class="section-title" id="catalog-title">Catálogo de estilos</h2>
+      <p class="section-subtitle">
+        Encuentra el estilo perfecto para realzar tu mirada.
+        Cada servicio es realizado con técnica y dedicación.
+      </p>
+    </div>
+
+    <ul class="catalog__grid" role="list" aria-label="Catálogo de servicios de pestañas">
+      {catalog.map((style) => (
+        <li>
+          <CatalogCard style={style} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .catalog__header {
+    margin-bottom: var(--space-12);
+  }
+
+  .catalog__eyebrow {
+    text-align: center;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+    max-width: none;
+  }
+
+  /* Grid responsivo: 1 → 2 → 3 columnas */
+  .catalog__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .catalog__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .catalog__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

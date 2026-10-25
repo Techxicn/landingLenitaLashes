@@ -1,0 +1,92 @@
+---
+import '../styles/global.css';
+import { business } from '../data/business';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = business.seo.title,
+  description = business.seo.description,
+  ogImage = business.seo.ogImage,
+  canonicalUrl = Astro.url.href,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO básico -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbsolute} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content={business.nombre} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Preconnect a Google Fonts para reducir latencia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Theme color para mobile browsers -->
+    <meta name="theme-color" content="#c9897a" />
+
+    <!-- Datos estructurados (LocalBusiness) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BeautySalon",
+      "name": business.nombre,
+      "description": business.descripcion,
+      "url": siteUrl,
+      "telephone": `+${business.whatsapp}`,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": business.ubicacion,
+      },
+      "openingHours": business.horario,
+      "sameAs": [
+        business.redes.instagram,
+        business.redes.facebook,
+        business.redes.tiktok,
+      ].filter(Boolean),
+    })} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<!-- currentYear se expone para que Footer lo use via prop si es necesario -->
+<script define:vars={{ currentYear }}>
+  // Disponible en window para debugging, no se usa en producción
+</script>

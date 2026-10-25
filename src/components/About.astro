@@ -1,0 +1,166 @@
+---
+import { business } from '../data/business';
+
+const valores = [
+  {
+    icon: '🌿',
+    titulo: 'Higiene y seguridad',
+    descripcion:
+      'Trabajamos con materiales estériles de un solo uso y seguimos estrictos protocolos de higiene en cada sesión.',
+  },
+  {
+    icon: '✨',
+    titulo: 'Productos de calidad',
+    descripcion:
+      'Usamos extensiones y adhesivos de grado profesional, sin irritantes, para cuidar la salud de tus pestañas naturales.',
+  },
+  {
+    icon: '💛',
+    titulo: 'Atención personalizada',
+    descripcion:
+      'Diseñamos el estilo ideal para cada cliente según la forma de sus ojos, preferencias y estilo de vida.',
+  },
+];
+---
+
+<section class="about section section--alt" id="nosotras" aria-labelledby="about-title">
+  <div class="container">
+    <div class="about__header">
+      <p class="about__eyebrow">Sobre nosotras</p>
+      <hr class="divider" aria-hidden="true" />
+      <h2 class="about__title section-title" id="about-title">
+        Pasión por realzar tu belleza natural
+      </h2>
+      <p class="section-subtitle">{business.descripcion}</p>
+    </div>
+
+    <ul class="about__values" role="list" aria-label="Nuestros valores">
+      {valores.map(({ icon, titulo, descripcion }) => (
+        <li class="about__value-card">
+          <div class="about__value-icon" aria-hidden="true">{icon}</div>
+          <h3 class="about__value-title">{titulo}</h3>
+          <p class="about__value-desc">{descripcion}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="about__location" aria-label="Información de ubicación y horario">
+      <div class="about__info-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+          <circle cx="12" cy="9" r="2.5" />
+        </svg>
+        <span>{business.ubicacion}</span>
+      </div>
+      <div class="about__info-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        <span>{business.horario}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__header {
+    margin-bottom: var(--space-12);
+  }
+
+  .about__eyebrow {
+    text-align: center;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+    max-width: none;
+  }
+
+  .about__title {
+    margin-bottom: var(--space-4);
+  }
+
+  /* Grid de valores */
+  .about__values {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    list-style: none;
+    margin-bottom: var(--space-12);
+  }
+
+  @media (min-width: 640px) {
+    .about__values {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .about__value-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+  }
+
+  .about__value-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about__value-card:hover {
+      transform: none;
+    }
+  }
+
+  .about__value-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-4);
+    display: block;
+  }
+
+  .about__value-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  .about__value-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    max-width: none;
+  }
+
+  /* Info ubicación / horario */
+  .about__location {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-6) var(--space-10);
+    padding: var(--space-6) var(--space-8);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .about__info-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .about__info-item svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+</style>

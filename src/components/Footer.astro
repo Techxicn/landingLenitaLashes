@@ -1,0 +1,139 @@
+---
+import { business } from '../data/business';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="footer__icon" aria-hidden="true">✦</span>
+      <span class="footer__name">{business.nombre}</span>
+    </div>
+
+    <p class="footer__eslogan">{business.eslogan}</p>
+
+    <nav class="footer__nav" aria-label="Navegación del pie de página">
+      <ul class="footer__nav-list" role="list">
+        <li><a href="#servicios" class="footer__nav-link">Servicios</a></li>
+        <li><a href="#nosotras" class="footer__nav-link">Nosotras</a></li>
+        <li><a href="#como-reservar" class="footer__nav-link">Cómo reservar</a></li>
+        <li><a href="#contacto" class="footer__nav-link">Contacto</a></li>
+      </ul>
+    </nav>
+
+    {business.redes.instagram && (
+      <a
+        href={business.redes.instagram}
+        class="footer__social"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Instagram de ${business.nombre}`}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+        </svg>
+        Instagram
+      </a>
+    )}
+
+    <p class="footer__copy">
+      &copy; {currentYear} {business.nombre}. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-black);
+    color: var(--color-text-light);
+    padding-block: var(--space-12);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .footer__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .footer__icon {
+    color: var(--color-primary);
+    font-size: var(--text-lg);
+  }
+
+  .footer__name {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-white);
+    letter-spacing: 0.02em;
+  }
+
+  .footer__eslogan {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    max-width: none;
+  }
+
+  .footer__nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2) var(--space-6);
+    list-style: none;
+  }
+
+  .footer__nav-link {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-text-light);
+    transition: color var(--transition-fast);
+  }
+
+  .footer__nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  .footer__social {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    color: var(--color-text-light);
+    transition: color var(--transition-fast);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-full);
+  }
+
+  .footer__social:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .footer__copy {
+    font-size: var(--text-xs);
+    color: rgba(176, 136, 128, 0.6);
+    max-width: none;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: var(--space-6);
+    width: 100%;
+    margin-top: var(--space-2);
+  }
+</style>
